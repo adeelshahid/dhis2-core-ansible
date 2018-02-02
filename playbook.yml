@@ -12,7 +12,7 @@
   environment:
     JAVA_HOME: /usr/lib/jvm/java-8-oracle/
     CATALINA_HOME: /opt/tomcat
-    DHIS_HOME: /dhis2_config
+    DHIS2_HOME: /dhis2_home
 
   tasks:
   # - import_tasks: include/base.yml
