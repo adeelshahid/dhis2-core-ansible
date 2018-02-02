@@ -6,16 +6,20 @@
     db_name: dhis2
     db_user: dhis
     db_pass: dhis
+    dhis_home: /dhis2_home
+    dhis_core: /dhis2_core
   
   environment:
     JAVA_HOME: /usr/lib/jvm/java-8-oracle/
     CATALINA_HOME: /opt/tomcat
+    DHIS_HOME: /dhis2_config
 
   tasks:
-  - import_tasks: include/base.yml
-  - import_tasks: include/java.yml
-  - import_tasks: include/postgres.yml
-  - import_tasks: include/tomcat.yml
+  # - import_tasks: include/base.yml
+  # - import_tasks: include/java.yml
+  # - import_tasks: include/postgres.yml
+  # - import_tasks: include/tomcat.yml
+  - import_tasks: include/dhis2-core.yml
   
   handlers:
   - import_tasks: handlers.yml

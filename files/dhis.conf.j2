@@ -1,0 +1,9 @@
+connection.dialect = org.hibernate.dialect.PostgreSQLDialect
+connection.driver_class = org.postgresql.Driver
+connection.url = jdbc:postgresql://localhost/{{ db_name }}
+connection.username = {{ db_user }}
+connection.password = {{ db_pass }}
+# Database schema behavior, can be validate, update, create, create-drop
+connection.schema = update
+
+encryption.password = xxxx
