@@ -1,0 +1,21 @@
+---
+- hosts: all
+  become: yes
+  
+  vars:
+    db_name: dhis2
+    db_user: dhis
+    db_pass: dhis
+  
+  environment:
+    JAVA_HOME: /usr/lib/jvm/java-8-oracle/
+    CATALINA_HOME: /opt/tomcat
+
+  tasks:
+  - import_tasks: include/base.yml
+  - import_tasks: include/java.yml
+  - import_tasks: include/postgres.yml
+  - import_tasks: include/tomcat.yml
+  
+  handlers:
+  - import_tasks: handlers.yml

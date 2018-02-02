@@ -1,0 +1,36 @@
+---
+- group:
+    name: tomcat
+    state: present
+
+- user:
+    name: tomcat
+    group: tomcat
+
+- user:
+    name: vagrant
+    groups: tomcat
+
+- name: download tomcat
+  unarchive:
+    src: http://apache.uib.no/tomcat/tomcat-8/v8.5.27/bin/apache-tomcat-8.5.27.tar.gz
+    dest: /opt
+    remote_src: yes
+  args:
+    creates: /opt/tomcat
+
+- command: mv /opt/apache-tomcat-8.5.27 /opt/tomcat
+  args:
+    creates: /opt/tomcat
+
+- file:
+    path: /opt/tomcat/
+    group: tomcat
+    owner: tomcat
+    recurse: yes
+
+- copy:
+    src: files/tomcat.conf
+    dest: /etc/init/
+  notify:
+    - restart tomcat

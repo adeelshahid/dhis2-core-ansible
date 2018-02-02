@@ -1,0 +1,48 @@
+---
+- name: ensure packages are installed
+  apt:
+    name: "{{ item }}"
+    update_cache: yes
+  with_items:
+    - postgresql
+    - postgresql-contrib
+    - libpq-dev
+    - python-psycopg2
+
+- name: "create user - {{ db_user }}"
+  become_user: postgres
+  postgresql_user:
+    name: "{{ db_user }}"
+    password: "{{ db_pass }}"
+    role_attr_flags: CREATEDB,NOSUPERUSER
+
+- name: "create database - {{ db_name }}"
+  become_user: postgres
+  postgresql_db:
+    name: "{{ db_name }}"
+    encoding: UTF-8
+
+- name: ensure user has access to database
+  become: yes
+  become_user: postgres
+  postgresql_user:
+    db: "{{ db_name }}"
+    name: "{{ db_user }}"
+    password: "{{ db_pass }}"
+    priv: ALL
+  notify:
+    - restart postgres
+
+- stat:
+    path: /var/demo.imported
+  register: demo_imported
+
+- name: "import demo data into {{ db_name }}"
+  become_user: postgres
+  shell: "psql {{ db_name }} < /vagrant/demo.sql"
+  when: not demo_imported.stat.exists
+
+- name: touch demo.imported file
+  file:
+    path: /var/demo.imported
+    state: touch
