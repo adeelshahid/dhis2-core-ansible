@@ -6,6 +6,7 @@ After=network.target
 [Service]
 Type=forking
 
+Environment=DHIS2_HOME=/dhis2_home
 Environment=JAVA_HOME=/usr/lib/jvm/java-8-oracle
 Environment=CATALINA_PID=/opt/tomcat/temp/tomcat.pid
 Environment=CATALINA_HOME=/opt/tomcat

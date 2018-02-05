@@ -3,7 +3,7 @@
   become: yes
   apt: name=software-properties-common state=latest
 
-- name: Add Oracle Java Repository
+- name: add Oracle Java repository
   become: yes
   apt_repository: repo='ppa:webupd8team/java'
 

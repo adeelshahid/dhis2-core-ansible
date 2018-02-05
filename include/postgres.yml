@@ -15,8 +15,19 @@
     update_cache: yes
   with_items:
     - postgresql-9.6
+    - postgresql-contrib-9.6
     - libpq-dev
     - python-psycopg2
+
+- name: add Postgis repository
+  become: yes
+  apt_repository: repo='ppa:ubuntugis/ubuntugis-unstable'
+
+- name: install postgis
+  become: yes
+  apt:
+    name: postgresql-9.6-postgis-2.3
+    state: present
 
 - name: "create user - {{ db_user }}"
   become_user: postgres
@@ -30,6 +41,10 @@
   postgresql_db:
     name: "{{ db_name }}"
     encoding: UTF-8
+
+- name: create postgis extensions for - {{ db_name }}
+  become_user: postgres
+  command: "psql -c 'CREATE EXTENSION postgis; CREATE EXTENSION postgis_topology;' {{ db_name }}"
 
 - name: ensure user has access to database
   become: yes

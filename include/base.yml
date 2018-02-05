@@ -10,3 +10,22 @@
     - curl
     - git
     - maven
+
+- stat:
+    path: /var/bashrc.updated
+  register: bashrc_updated
+
+- command: echo "export LANGUAGE=en_US.UTF-8">>~/.bashrc
+  when: not bashrc_updated.stat.exists
+
+- command: echo "export LC_ALL=en_US.UTF-8">>~/.bashrc
+  when: not bashrc_updated.stat.exists
+  
+- command: echo "export DHIS2_HOME=/dhis2_home">>~/.bashrc
+  when: not bashrc_updated.stat.exists
+
+- name: touch bashrc.updated file
+  file:
+    path: /var/bashrc.updated
+    state: touch
+  when: not bashrc_updated.stat.exists
