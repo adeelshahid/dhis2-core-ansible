@@ -30,7 +30,10 @@
     recurse: yes
 
 - copy:
-    src: files/tomcat.conf
-    dest: /etc/init/
+    src: files/tomcat.service
+    dest: /etc/systemd/system/
+
+- name: reload systemd services
+  command: systemctl daemon-reload
   notify:
     - restart tomcat

@@ -1,11 +1,20 @@
 ---
+- name: add apt_repository for postgresql-9.6
+  apt_repository:
+    repo: "deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main"
+    state: present
+
+- name: add apt_key for postgres
+  apt_key:
+      url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+      state: present
+
 - name: ensure packages are installed
   apt:
     name: "{{ item }}"
     update_cache: yes
   with_items:
-    - postgresql
-    - postgresql-contrib
+    - postgresql-9.6
     - libpq-dev
     - python-psycopg2
 
@@ -46,3 +55,4 @@
   file:
     path: /var/demo.imported
     state: touch
+  when: not demo_imported.stat.exists

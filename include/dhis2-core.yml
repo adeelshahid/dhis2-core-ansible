@@ -1,42 +1,42 @@
 ---
-# - name: clone dhis2-core repo
-#   git:
-#     repo: 'https://github.com/dhis2/dhis2-core.git'
-#     dest: /dhis2_core
-#     clone: yes
-#     version: master
+- name: clone dhis2-core repo
+  git:
+    repo: 'https://github.com/dhis2/dhis2-core.git'
+    dest: /dhis2_core
+    clone: yes
+    version: master
 
-# - name: "create {{ dhis_home }}"
-#   file: 
-#     path: "{{ dhis_home }}"
-#     state: directory
+- name: "create {{ dhis_home }}"
+  file: 
+    path: "{{ dhis_home }}"
+    state: directory
 
-# - name: copy dhis config
-#   template:
-#     src: files/dhis.conf.j2
-#     dest: "{{ dhis_home }}/dhis.conf"
+- name: copy dhis config
+  template:
+    src: files/dhis.conf.j2
+    dest: "{{ dhis_home }}/dhis.conf"
 
-# - name: dhis2-core - maven install
-#   command: mvn install -DskipTests
-#   args:
-#     chdir: "{{ dhis_core }}/dhis-2"
+- name: dhis2-core - mvn clean install -Pdev
+  command: mvn clean install -Pdev
+  args:
+    chdir: "{{ dhis_core }}/dhis-2"
 
-# - name: dhis2-web - maven install
-#   command: mvn install -DskipTests
-#   args:
-#     chdir: "{{ dhis_core }}/dhis-2/dhis-web"
+- name: dhis2-web - mvn clean install -Pdev
+  command: mvn clean install -Pdev
+  args:
+    chdir: "{{ dhis_core }}/dhis-2/dhis-web"
 
-# - file:
-#     path: "{{ dhis_core }}"
-#     group: tomcat
-#     owner: tomcat
-#     recurse: yes
+- file:
+    path: "{{ dhis_core }}"
+    group: tomcat
+    owner: tomcat
+    recurse: yes
 
-# - file:
-#     path: "{{ dhis_home }}"
-#     group: tomcat
-#     owner: tomcat
-#     recurse: yes
+- file:
+    path: "{{ dhis_home }}"
+    group: tomcat
+    owner: tomcat
+    recurse: yes
 
 - name: copy dhis.war and restart tomcat
   become_user: tomcat

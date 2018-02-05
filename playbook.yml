@@ -1,6 +1,7 @@
 ---
 - hosts: all
   become: yes
+  gather_facts: no
   
   vars:
     db_name: dhis2
@@ -15,10 +16,10 @@
     DHIS2_HOME: /dhis2_home
 
   tasks:
-  # - import_tasks: include/base.yml
-  # - import_tasks: include/java.yml
-  # - import_tasks: include/postgres.yml
-  # - import_tasks: include/tomcat.yml
+  - import_tasks: include/base.yml
+  - import_tasks: include/java.yml
+  - import_tasks: include/postgres.yml
+  - import_tasks: include/tomcat.yml
   - import_tasks: include/dhis2-core.yml
   
   handlers:
