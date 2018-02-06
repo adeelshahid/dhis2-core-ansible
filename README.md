@@ -18,3 +18,14 @@ $> vagrant up
 When vagrant finishes with installation and provision. You can check here for DHIS2 admin [http://192.168.22.11:8080/dhis/](http://192.168.22.11:8080/dhis/)
 
 **username:** admin, **password:** district
+
+# Frontend Apps setup
+
+Inside ~/dhis2_home create *config.json* file. This would be read by app to know where is the core dhis2-server located.
+
+```json
+{
+    "baseUrl": "http://192.168.22.11:8080/dhis",
+    "authorization": "Basic YWRtaW46ZGlzdHJpY3Q="
+}
+```
