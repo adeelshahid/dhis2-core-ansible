@@ -9,11 +9,11 @@ Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/xenial64"
   config.vm.network "private_network", ip: "192.168.22.11"
   # config.vm.synced_folder "./dhis2_core", "/dhis2_core"
-  config.disksize.size = "30GB"
+  config.disksize.size = "15GB"
 
   config.vm.provider "virtualbox" do |vb|
     vb.memory = "4096"
-    vb.cpus = 2
+    vb.cpus = 1
   end
 
   config.vm.provision "shell" do |s|
