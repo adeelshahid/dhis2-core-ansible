@@ -1,42 +1,53 @@
 ---
+- stat:
+    path: "{{ dhis_core }}/dhis-2"
+  register: dhis2_cloned
+
 - name: clone dhis2-core repo
   git:
     repo: 'https://github.com/dhis2/dhis2-core.git'
     dest: /dhis2_core
     clone: yes
     version: master
+  when: not dhis2_cloned.stat.exists
 
 - name: "create {{ dhis_home }}"
   file: 
     path: "{{ dhis_home }}"
     state: directory
+  when: not dhis2_cloned.stat.exists
 
 - name: copy dhis config
   template:
     src: files/dhis.conf.j2
     dest: "{{ dhis_home }}/dhis.conf"
+  when: not dhis2_cloned.stat.exists
 
 - name: dhis2-core - mvn clean install -Pdev
   command: mvn clean install -Pdev
   args:
     chdir: "{{ dhis_core }}/dhis-2"
+  when: not dhis2_cloned.stat.exists
 
 - name: dhis2-web - mvn clean install -Pdev
   command: mvn clean install -Pdev
   args:
     chdir: "{{ dhis_core }}/dhis-2/dhis-web"
+  when: not dhis2_cloned.stat.exists
 
 - file:
     path: "{{ dhis_core }}"
     group: tomcat
     owner: tomcat
     recurse: yes
+  when: not dhis2_cloned.stat.exists
 
 - file:
     path: "{{ dhis_home }}"
     group: tomcat
     owner: tomcat
     recurse: yes
+  when: not dhis2_cloned.stat.exists
 
 - name: copy dhis.war and restart tomcat
   become_user: tomcat

@@ -42,9 +42,14 @@
     name: "{{ db_name }}"
     encoding: UTF-8
 
+- stat:
+    path: /var/demo.imported
+  register: demo_imported
+
 - name: create postgis extensions for - {{ db_name }}
   become_user: postgres
   command: "psql -c 'CREATE EXTENSION postgis; CREATE EXTENSION postgis_topology;' {{ db_name }}"
+  when: not demo_imported.stat.exists
 
 - name: ensure user has access to database
   become: yes
@@ -56,10 +61,6 @@
     priv: ALL
   notify:
     - restart postgres
-
-- stat:
-    path: /var/demo.imported
-  register: demo_imported
 
 - name: "import demo data into {{ db_name }}"
   become_user: postgres
