@@ -2,6 +2,8 @@
 
 Install [Vagrant](https://www.vagrantup.com/downloads.html), [Ansible](http://docs.ansible.com/ansible/latest/intro_installation.html).
 
+Download on of the demo data databases from here [https://github.com/dhis2/dhis2-demo-db](https://github.com/dhis2/dhis2-demo-db). Extract and rename .sql file to **demo.sql** and put it inside dhis-core-server below. Before running `vagrant up`
+
 
 # Setup
 
@@ -15,7 +17,4 @@ $> vagrant up
 # View
 When vagrant finishes with installation and provision. You can check here for DHIS2 admin [http://192.168.22.11:8080/dhis/](http://192.168.22.11:8080/dhis/)
 
-
-**username:** admin
-
-**password:** district
+**username:** admin, **password:** district
