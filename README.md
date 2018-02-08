@@ -10,6 +10,7 @@ Download on of the demo data databases from here [https://github.com/dhis2/dhis2
 ```bash
 $> git clone https://github.com/adeelshahid/dhis2-core-ansible.git dhis-core-server
 $> cd dhis-core-server
+$> vagrant plugin install vagrant-disksize
 $> vagrant up
 ```
 
