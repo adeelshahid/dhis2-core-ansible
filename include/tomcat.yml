@@ -13,7 +13,7 @@
 
 - name: download tomcat
   unarchive:
-    src: http://apache.uib.no/tomcat/tomcat-8/v8.5.27/bin/apache-tomcat-8.5.27.tar.gz
+    src: https://archive.apache.org/dist/tomcat/tomcat-8/v8.5.27/bin/apache-tomcat-8.5.27.tar.gz
     dest: /opt
     remote_src: yes
   args:

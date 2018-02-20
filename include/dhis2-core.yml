@@ -49,11 +49,16 @@
     recurse: yes
   when: not dhis2_cloned.stat.exists
 
+- name: "remove default ROOT dir"
+  file:
+    path: /opt/tomcat/webapps/ROOT
+    state: absent
+
 - name: copy dhis.war and restart tomcat
   become_user: tomcat
   copy:
     src: "{{ dhis_core }}/dhis-2/dhis-web/dhis-web-portal/target/dhis.war"
-    dest: /opt/tomcat/webapps/
+    dest: /opt/tomcat/webapps/ROOT.war
     group: tomcat
     owner: tomcat
     remote_src: true
