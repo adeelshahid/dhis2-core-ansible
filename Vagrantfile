@@ -9,7 +9,7 @@ Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/xenial64"
   config.vm.network "forwarded_port", guest: 8080, host: 8080
   config.vm.network "private_network", ip: "192.168.22.11"
-  config.disksize.size = "15GB"
+  config.disksize.size = "20GB"
 
   config.vm.provider "virtualbox" do |vb|
     vb.memory = "3100"
