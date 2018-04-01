@@ -1,7 +1,7 @@
 ---
 - name: add apt_repository for postgresql-9.6
   apt_repository:
-    repo: "deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main"
+    repo: "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main"
     state: present
 
 - name: add apt_key for postgres
