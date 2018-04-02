@@ -9,7 +9,6 @@
     - tree
     - curl
     - git
-    - maven
 
 - stat:
     path: /var/bashrc.updated

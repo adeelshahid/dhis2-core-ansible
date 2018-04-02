@@ -23,6 +23,11 @@
     dest: "{{ dhis_home }}/dhis.conf"
   when: not dhis2_cloned.stat.exists
 
+- name: install maven
+  apt:
+    name: maven
+    state: present
+
 - name: dhis2-core - mvn clean install -Pdev
   command: mvn clean install -Pdev
   args:
