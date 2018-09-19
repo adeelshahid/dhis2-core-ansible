@@ -9,10 +9,10 @@ Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/xenial64"
   config.vm.network "forwarded_port", guest: 8080, host: 8080
 
-  config.disksize.size = '20GB'
+  config.disksize.size = '40GB'
 
   config.vm.provider "virtualbox" do |v|
-    v.memory = 3100
+    v.memory = 4096
     v.cpus = 1
   end
 
@@ -23,4 +23,9 @@ Vagrant.configure("2") do |config|
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "playbook.yml"
   end
+
+  config.vm.provision "shell", run: "always" do |s|
+    s.inline = "service tomcat restart"
+  end
+    
 end
