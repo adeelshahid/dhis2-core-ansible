@@ -22,11 +22,22 @@ When vagrant finishes with installation and provision. You can check here for DH
 
 # Frontend Apps setup
 
-Inside ~/dhis2_home create *config.json* file. This would be read by app to know where is the core dhis2-server located.
+Create
+```bash
+mkdir -p ~/dhis2_home
+touch ~/dhis2_home/config.js
+```
 
-```json
-{
+add contents to `config.js`
+```
+module.exports = {
     "baseUrl": "http://192.168.22.11:8080/dhis",
     "authorization": "Basic YWRtaW46ZGlzdHJpY3Q="
 }
+```
+
+add env. variable `DHIS2_HOME` to `~/.zshrc`
+
+```js
+export DHIS2_HOME='/usr/home/${USERNAME}/dhis2_home'
 ```
